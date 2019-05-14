@@ -1,0 +1,62 @@
+# Default values for helm-csv-nginx-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: alexscheellkanov/csv-app
+  tag: latest
+  pullPolicy: Always
+
+image_nginx:
+  repository: alexscheellkanov/nginx
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: LoadBalancer
+  port: 8080
+  name: csv-app
+  nginx_port: 80
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/subnets: subnet-132b0576,subnet-c6377bb1
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: a1089e8b-default-doltishsw-176a-81203130.us-west-2.elb.amazonaws.com
+      http:
+        paths:
+        - backend:
+            serviceName: csv-app
+            servicePort: http
+          path: /
+
+  tls: []
+
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

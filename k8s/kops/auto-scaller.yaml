@@ -1,0 +1,26 @@
+awsRegion: us-west-2
+cloudProvider: aws
+autoscalingGroups:
+- name: nodes.alex-csv-demo.k8s.local
+  maxSize: 2
+  minSize: 1
+- name: masters.alex-csv-demo.k8s.local
+  maxSize: 2
+  minSize: 1
+- name: spotnodes.alex-csv-demo.k8s.local
+  maxSize: 2
+  minSize: 1
+extraArgs:
+  # Detect similar node groups and balance the number of nodes between them.
+  # Since we have similar IG per AZ, it's good to switch on this option
+  balance-similar-node-groups: true
+# Algorithm, which autoscaler uses for re-scheduling pods
+  expander: random
+# Since kops configuration allows kube-system pods to go to the all nodes, we need this option in order to downscale the cluster
+  skip-nodes-with-system-pods: "false"
+rbac:
+  create: true
+  pspEnabled: true
+scale-down-delay: 5m
+# Verbosity
+v: 2

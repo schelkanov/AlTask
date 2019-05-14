@@ -1,0 +1,7 @@
+jinja2
+flask
+flask-login
+Flask-WTF
+flask-bootstrap
+pyyaml
+boto3

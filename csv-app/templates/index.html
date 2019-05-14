@@ -1,0 +1,28 @@
+{% extends 'app_base.html' %} {% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+ {% if messages %}
+<ul>
+    {% for message in messages %}
+    <li>{{ message[1] }}</li>
+    {% endfor %}
+</ul>
+{% endif %} {% endwith %}
+<div class="alert alert-info alert-dismissable">
+  <strong>Your files will be uploaded to S3 </strong>
+</div>
+<div class="row">
+  <div class="center-block" style="width:200px">
+    <form action="/" method="POST" enctype="multipart/form-data">
+
+        <label for="user_file">Upload Your File</label>
+        <br></br>
+        <input type="file" name="user_file">
+        <br></br>
+        <button type="upload">Upload</button>
+
+    </form>
+  </div>
+</form>
+
+
+{% endblock %}
