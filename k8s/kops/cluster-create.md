@@ -1,0 +1,13 @@
+kops create cluster \
+--cloud=aws \
+--zones=us-west-2a \
+--node-count=1 \
+--topology private \
+--networking kopeio-vxlan \
+--node-size=t2.large \
+--master-size=t2.micro \
+--vpc=vpc-foo \
+--name alex-csv-demo.k8s.local \
+--network-cidr "10.0.0.0/16" \
+--utility-subnets=subnet-bar \
+--subnets=subnet-foo
